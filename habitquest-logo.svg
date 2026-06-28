@@ -1,0 +1,89 @@
+<svg width="680" height="240" viewBox="0 0 680 240" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>HabitQuest Logo</title>
+<desc>HabitQuest RPG logo with shield, sword, gold and purple theme</desc>
+<defs>
+  <linearGradient id="shieldG" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" style="stop-color:#6A3FE0"/>
+    <stop offset="100%" style="stop-color:#3D1FA8"/>
+  </linearGradient>
+  <linearGradient id="shieldShine" x1="0%" y1="0%" x2="60%" y2="100%">
+    <stop offset="0%" style="stop-color:rgba(255,255,255,0.18)"/>
+    <stop offset="100%" style="stop-color:rgba(255,255,255,0)"/>
+  </linearGradient>
+  <linearGradient id="bladeG" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" style="stop-color:#E8E0FF"/>
+    <stop offset="50%" style="stop-color:#FFFFFF"/>
+    <stop offset="100%" style="stop-color:#C0AAFF"/>
+  </linearGradient>
+  <linearGradient id="goldG" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" style="stop-color:#FFE066"/>
+    <stop offset="100%" style="stop-color:#F4A623"/>
+  </linearGradient>
+</defs>
+
+<!-- Shield shadow -->
+<path d="M116 50 L178 50 L178 138 Q116 172 116 172 Q54 172 54 138 L54 50 Z" fill="rgba(0,0,0,0.3)" transform="translate(4,4)"/>
+
+<!-- Shield main body -->
+<path d="M116 46 L178 46 L178 134 Q116 168 116 168 Q54 168 54 134 L54 46 Z" fill="url(#shieldG)"/>
+
+<!-- Shield shine overlay -->
+<path d="M116 46 L178 46 L178 134 Q116 168 116 168 Q54 168 54 134 L54 46 Z" fill="url(#shieldShine)"/>
+
+<!-- Shield border -->
+<path d="M116 46 L178 46 L178 134 Q116 168 116 168 Q54 168 54 134 L54 46 Z" fill="none" stroke="rgba(192,170,255,0.5)" stroke-width="2"/>
+
+<!-- Inner shield frame -->
+<path d="M116 58 L168 58 L168 128 Q116 156 116 156 Q64 156 64 128 L64 58 Z" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+
+<!-- Shield corner gems -->
+<circle cx="72" cy="60" r="4" fill="url(#goldG)" opacity="0.9"/>
+<circle cx="160" cy="60" r="4" fill="url(#goldG)" opacity="0.9"/>
+
+<!-- Sword blade -->
+<rect x="112" y="58" width="8" height="72" rx="2" fill="url(#bladeG)"/>
+<rect x="114.5" y="60" width="1.5" height="66" rx="1" fill="rgba(255,255,255,0.7)"/>
+<!-- Sword tip -->
+<path d="M112 130 L116 148 L120 130 Z" fill="url(#bladeG)"/>
+
+<!-- Crossguard -->
+<rect x="94" y="100" width="44" height="9" rx="4" fill="url(#goldG)"/>
+<circle cx="100" cy="104" r="3.5" fill="#FF6B6B"/>
+<circle cx="132" cy="104" r="3.5" fill="#06D6A0"/>
+
+<!-- Handle -->
+<rect x="113" y="109" width="6" height="22" rx="3" fill="#9D7FFF"/>
+<rect x="113" y="113" width="6" height="1.5" rx="0.5" fill="rgba(255,255,255,0.3)"/>
+<rect x="113" y="117" width="6" height="1.5" rx="0.5" fill="rgba(255,255,255,0.3)"/>
+<rect x="113" y="121" width="6" height="1.5" rx="0.5" fill="rgba(255,255,255,0.3)"/>
+<rect x="113" y="125" width="6" height="1.5" rx="0.5" fill="rgba(255,255,255,0.3)"/>
+
+<!-- Pommel -->
+<circle cx="116" cy="134" r="5.5" fill="url(#goldG)" stroke="#E09000" stroke-width="1"/>
+
+<!-- Shield stars -->
+<path d="M80 72 L82.5 79 L90 79 L84 83.5 L86.5 90.5 L80 86 L73.5 90.5 L76 83.5 L70 79 L77.5 79 Z" fill="url(#goldG)"/>
+<path d="M152 72 L154.5 79 L162 79 L156 83.5 L158.5 90.5 L152 86 L145.5 90.5 L148 83.5 L142 79 L149.5 79 Z" fill="url(#goldG)"/>
+
+<!-- XP diamond -->
+<path d="M116 162 L124 154 L116 146 L108 154 Z" fill="url(#goldG)" stroke="#E09000" stroke-width="1"/>
+<text x="116" y="157" font-family="'Segoe UI',sans-serif" font-size="7" font-weight="800" fill="#3D1FA8" text-anchor="middle">XP</text>
+
+<!-- HABIT text - gold -->
+<text x="210" y="108" font-family="'Segoe UI', system-ui, sans-serif" font-size="58" font-weight="800" fill="url(#goldG)" letter-spacing="-1">HABIT</text>
+
+<!-- QUEST text - light purple -->
+<text x="210" y="168" font-family="'Segoe UI', system-ui, sans-serif" font-size="58" font-weight="800" fill="#C0AAFF" letter-spacing="-1">QUEST</text>
+
+<!-- Divider -->
+<rect x="210" y="116" width="320" height="2.5" rx="1" fill="rgba(192,170,255,0.25)"/>
+
+<!-- Tagline -->
+<text x="213" y="195" font-family="'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#7C6BAA" letter-spacing="4">LEVEL UP YOUR LIFE</text>
+
+<!-- Dots -->
+<circle cx="213" cy="188" r="2.5" fill="#7C5CFF"/>
+<circle cx="224" cy="188" r="2.5" fill="#9D7FFF"/>
+<circle cx="235" cy="188" r="2.5" fill="#C0AAFF"/>
+
+</svg>
