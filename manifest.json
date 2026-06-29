@@ -1,0 +1,26 @@
+{
+  "name": "HabitQuest — Gamified Habit Tracker",
+  "short_name": "HabitQuest",
+  "description": "Level up your life with gamified habit tracking. XP, streaks, achievements and boss battles.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0B1A",
+  "theme_color": "#7C5CFF",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "productivity", "utilities"],
+  "screenshots": []
+}
