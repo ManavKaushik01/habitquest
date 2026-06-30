@@ -111,7 +111,8 @@ body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans
 .sidebar.collapsed{transform:translateX(-100%)}
 .sb-logo{padding:20px 18px 16px;border-bottom:1px solid var(--border)}
 .logo-row{display:flex;align-items:center;gap:10px}
-.logo-gem{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#7C5CFF,#FF6BD6);display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 0 20px rgba(124,92,255,.5);flex-shrink:0}
+.logo-gem{width:38px;height:38px;border-radius:11px;overflow:hidden;box-shadow:0 0 20px rgba(124,92,255,.5);flex-shrink:0;background:linear-gradient(135deg,#7C5CFF,#3D1FA8);display:flex;align-items:center;justify-content:center}
+.logo-gem img{width:100%;height:100%;object-fit:contain;display:block}
 .logo-text{font-size:17px;font-weight:800;background:linear-gradient(90deg,#C0AAFF,#FF6BD6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .logo-sub{font-size:10px;color:var(--txt3)}
 .sb-profile{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .15s}
@@ -219,6 +220,12 @@ body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans
 .today-layout{display:grid;grid-template-columns:minmax(220px,260px) 1fr;gap:14px;margin-bottom:16px}
 @media(max-width:860px){.today-layout{grid-template-columns:1fr}}
 /* RING */
+/* ── PENALTY SYSTEM ── */
+.hcard.penalty{border-color:rgba(255,60,60,.5)!important;background:rgba(255,40,40,.06)!important}
+.hcard.penalty .hc-name{color:var(--coral)!important}
+.penalty-strip{height:3px;border-radius:2px;background:linear-gradient(90deg,#FF3030,#FF7070);margin-top:5px;animation:penPulse 1.5s ease-in-out infinite}
+@keyframes penPulse{0%,100%{opacity:.5}50%{opacity:1}}
+.penalty-tag{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;color:#FF5050;background:rgba(255,50,50,.1);border:1px solid rgba(255,50,50,.2);border-radius:10px;padding:2px 6px;margin-left:4px}
 .ring-panel{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .ring-wrap{position:relative;width:150px;height:150px}
 .ring-wrap canvas{display:block}
@@ -682,7 +689,7 @@ body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,sans
 <aside class="sidebar" id="sidebar">
   <div class="sb-logo">
     <div class="logo-row">
-      <div class="logo-gem">⚔️</div>
+      <div class="logo-gem" id="logo-gem-box"><img src="/icon-192.png" alt="HabitQuest" onerror="document.getElementById('logo-gem-box').innerHTML='⚔️';document.getElementById('logo-gem-box').style.cssText+=';font-size:20px;display:flex;align-items:center;justify-content:center'"></div>
       <div><div class="logo-text">HabitQuest</div><div class="logo-sub">Level up your daily life</div></div>
     </div>
   </div>
@@ -1324,12 +1331,49 @@ const QUOTES=[
 ];
 
 const BOSSES=[
-  {emoji:'👹',name:'The Procrastinator',sub:'Complete 70%+ of habits this week to defeat it!',xpR:200,badge:'⚔️ Boss Slayer'},
-  {emoji:'🐉',name:'Dragon of Distraction',sub:'Complete 80%+ of habits this week!',xpR:300,badge:'🐉 Dragon Slayer'},
-  {emoji:'💀',name:'Lord of Laziness',sub:"Don't miss any habit today!",xpR:400,badge:'💀 Undead Slayer'},
-  {emoji:'🕸️',name:'The Comfort Trap',sub:'Hit 100% completion any day this week!',xpR:150,badge:'🕸️ Escape Artist'},
-  {emoji:'🌑',name:'Shadow of Doubt',sub:'Complete 5+ habits in a single day!',xpR:250,badge:'🌑 Shadow Breaker'},
+  // Tier 1: Levels 1-9 — Easy bosses
+  {emoji:'👹',name:'The Procrastinator',sub:'Complete 70%+ of habits this week to defeat it!',xpR:200,badge:'⚔️ Boss Slayer',minLv:1,tier:1},
+  {emoji:'🕸️',name:'The Comfort Trap',sub:'Hit 100% completion any day this week!',xpR:150,badge:'🕸️ Escape Artist',minLv:1,tier:1},
+  {emoji:'🌑',name:'Shadow of Doubt',sub:'Complete 5+ habits in a single day!',xpR:250,badge:'🌑 Shadow Breaker',minLv:1,tier:1},
+  // Tier 2: Levels 10-19 — Medium bosses
+  {emoji:'🐉',name:'Dragon of Distraction',sub:'Complete 80%+ of habits this week!',xpR:350,badge:'🐉 Dragon Slayer',minLv:10,tier:2},
+  {emoji:'💀',name:'Lord of Laziness',sub:"Don't miss any habit today!",xpR:400,badge:'💀 Undead Slayer',minLv:10,tier:2},
+  {emoji:'🧟',name:'Habit Zombie',sub:'Maintain a 7-day streak this week!',xpR:380,badge:'🧟 Zombie Hunter',minLv:10,tier:2},
+  // Tier 3: Levels 20-34 — Hard bosses
+  {emoji:'👺',name:'Demon of Doubt',sub:'Complete 90%+ of habits this week!',xpR:550,badge:'👺 Demon Bane',minLv:20,tier:3},
+  {emoji:'🦂',name:'Scorpion of Setbacks',sub:'No missed habits for 10 days!',xpR:600,badge:'🦂 Venom Slayer',minLv:20,tier:3},
+  {emoji:'🐺',name:'Wolf of Weakness',sub:'Hit 100% completion 3 days this week!',xpR:580,badge:'🐺 Alpha Hunter',minLv:20,tier:3},
+  // Tier 4: Levels 35-49 — Very hard bosses
+  {emoji:'🧛',name:'Vampire of Vices',sub:'Complete 95%+ of habits this week!',xpR:800,badge:'🧛 Vampire Hunter',minLv:35,tier:4},
+  {emoji:'👻',name:'Phantom of Failure',sub:'Maintain a 21-day streak!',xpR:850,badge:'👻 Ghost Buster',minLv:35,tier:4},
+  // Tier 5: Levels 50+ — Legendary bosses
+  {emoji:'👑',name:'King of Excuses',sub:'Perfect week — 100% every single day!',xpR:1200,badge:'👑 Excuse Crusher',minLv:50,tier:5},
+  {emoji:'🔥',name:'Inferno of Inaction',sub:'Complete 100+ habits this month!',xpR:1500,badge:'🔥 Phoenix Rising',minLv:50,tier:5},
 ];
+
+function getAvailableBosses(playerLv){
+  return BOSSES.filter(b=>b.minLv<=playerLv);
+}
+
+function getBossDifficulty(boss,playerLv){
+  // Stars scale with tier, capped at 5
+  return Math.min(5,boss.tier+Math.floor(playerLv/25));
+}
+
+function getScaledBossHP(boss,playerLv){
+  // Higher level players need higher completion % to defeat same-tier boss
+  // Base requirement increases slightly with level within same tier
+  const tierLevelStart=[1,10,20,35,50][boss.tier-1];
+  const levelsIntoTier=Math.max(0,playerLv-tierLevelStart);
+  const extraDifficulty=Math.min(15,levelsIntoTier*0.5); // up to +15% harder
+  return extraDifficulty;
+}
+
+function getScaledBossXP(boss,playerLv){
+  // XP reward scales up ~3% per level above the boss's min level, capped at 2x
+  const bonus=Math.min(1,(playerLv-boss.minLv)*0.03);
+  return Math.round(boss.xpR*(1+bonus));
+}
 
 // STATE
 let curDate=new Date();curDate.setHours(0,0,0,0);
@@ -1482,28 +1526,102 @@ function renderSidebar(){
 let quoteIdx=Math.floor(Math.random()*QUOTES.length);
 function newQuote(){quoteIdx=(quoteIdx+1)%QUOTES.length;const el=document.getElementById('q-txt');if(el)el.textContent=QUOTES[quoteIdx]}
 
+function getCalendarWeek(date){
+  const d=new Date(date);
+  d.setHours(0,0,0,0);
+  d.setDate(d.getDate()+3-(d.getDay()+6)%7);
+  const week1=new Date(d.getFullYear(),0,4);
+  return 1+Math.round(((d-week1)/86400000-3+(week1.getDay()+6)%7)/7);
+}
+
 function renderBoss(){
   const wk=weekDays(new Date());
   const done=wk.reduce((s,d)=>s+habits.filter(h=>isActive(h,d)&&isDone(h,d)).length,0);
   const total=wk.reduce((s,d)=>s+habits.filter(h=>isActive(h,d)).length,0);
   const pct=total?done/total:0;
+  const playerLv=getLvInfo().lv;
   const hp=Math.max(0,Math.round((1-pct)*100));
-  const wn=Math.floor(Date.now()/(7*24*60*60*1000));
-  const boss=BOSSES[wn%BOSSES.length];
+  // Use calendar week + year for true weekly rotation, filtered by unlocked tier
+  const now=new Date();
+  const wn=now.getFullYear()*53+getCalendarWeek(now);
+  const avail=getAvailableBosses(playerLv);
+  const boss=avail[wn%avail.length];
+  const scaledXP=getScaledBossXP(boss,playerLv);
+  const stars=getBossDifficulty(boss,playerLv);
   const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
-  set('boss-emoji',boss.emoji);set('boss-name',hp===0?`✅ DEFEATED: ${boss.name}`:`Weekly Boss: ${boss.name}`);
-  set('boss-sub',boss.sub);set('boss-hp-txt',`${hp} / 100 HP`);set('boss-reward-txt',`Defeat reward: ${boss.xpR} bonus XP + ${boss.badge}`);
+  set('boss-emoji',boss.emoji);
+  set('boss-name',hp===0?`✅ DEFEATED: ${boss.name}`:`Weekly Boss: ${boss.name}`);
+  set('boss-sub',boss.sub);
+  set('boss-hp-txt',`${hp} / 100 HP`);
+  set('boss-reward-txt',`Defeat reward: ${scaledXP} bonus XP + ${boss.badge}`);
   const hpf=document.getElementById('boss-hp-fill');
   if(hpf){hpf.style.width=hp+'%';hpf.style.background=hp===0?'linear-gradient(90deg,#555,#333)':'linear-gradient(90deg,var(--coral),#FF8C00)'}
-  // SVG ring
   const ring=document.getElementById('boss-svg-ring');
   if(ring){const circ=2*Math.PI*22;ring.style.strokeDashoffset=circ*(1-hp/100);ring.style.stroke=hp===0?'#555':hp<30?'#FFD166':'var(--coral)'}
   const pctTxt=document.getElementById('boss-pct-txt');
   if(pctTxt){pctTxt.textContent=hp+'%';pctTxt.style.color=hp===0?'#555':hp<30?'var(--gold)':'var(--coral)'}
-  // Stars difficulty
-  const stars=document.getElementById('boss-stars');
-  const weekN=Math.floor(Date.now()/(7*24*60*60*1000));
-  if(stars)stars.textContent=['★☆☆☆☆','★★☆☆☆','★★★☆☆','★★★★☆','★★★★★'][weekN%5];
+  const starsEl=document.getElementById('boss-stars');
+  if(starsEl)starsEl.textContent='★'.repeat(stars)+'☆'.repeat(5-stars);
+  // Award XP for defeating boss (once per week)
+  if(hp===0){
+    const bKey=`boss_defeated_${now.getFullYear()}_${getCalendarWeek(now)}`;
+    if(!localStorage.getItem(bKey)){
+      localStorage.setItem(bKey,'1');
+      totalXP+=scaledXP;save();
+      toast(`🏆 Boss Defeated! +${scaledXP} XP — ${boss.badge}`,'ti-trophy','var(--gold)');
+    }
+  }
+}
+
+function checkPenalties(){
+  // Check yesterday's incomplete habits and deduct XP
+  const yesterday=addDays(new Date(),-1);
+  yesterday.setHours(0,0,0,0);
+  const yKey=dk(yesterday);
+  const penKey=`pen_${yKey}`;
+  if(localStorage.getItem(penKey))return; // already penalised
+  const activeYesterday=habits.filter(h=>isActive(h,yesterday));
+  const missedHabits=activeYesterday.filter(h=>!isDone(h,yesterday));
+  if(missedHabits.length===0)return;
+  // Deduct XP — 50% of missed XP
+  let penalty=0;
+  missedHabits.forEach(h=>{ penalty+=Math.round(h.xp*0.5) });
+  penalty=Math.min(penalty,totalXP); // can't go below 0
+  if(penalty>0){
+    totalXP=Math.max(0,totalXP-penalty);
+    save();
+    localStorage.setItem(penKey,'1');
+    setTimeout(()=>{
+      toast(`⚠️ -${penalty} XP penalty for ${missedHabits.length} missed habit${missedHabits.length>1?'s':''} yesterday!`,'ti-alert-triangle','var(--coral)');
+    },1500);
+  }
+}
+
+function applyPenaltyVisuals(){
+  // Show red border/strip on today's uncompleted habits after 10pm
+  const hour=new Date().getHours();
+  if(hour<22)return; // only show penalty visuals after 10pm
+  const active=habits.filter(h=>isActive(h,curDate));
+  const missed=active.filter(h=>!isDone(h,curDate));
+  missed.forEach(h=>{
+    const card=document.querySelector(`[data-id="${h.id}"]`);
+    if(card&&!card.classList.contains('done')){
+      card.classList.add('penalty');
+      if(!card.querySelector('.penalty-strip')){
+        const strip=document.createElement('div');
+        strip.className='penalty-strip';
+        card.appendChild(strip);
+      }
+      // Add penalty tag to name if not already there
+      const nameEl=card.querySelector('.hc-name');
+      if(nameEl&&!nameEl.querySelector('.penalty-tag')){
+        const tag=document.createElement('span');
+        tag.className='penalty-tag';
+        tag.innerHTML='⚠️ -'+Math.round(h.xp*0.5)+' XP';
+        nameEl.appendChild(tag);
+      }
+    }
+  });
 }
 
 function renderDQ(){
@@ -2386,6 +2504,9 @@ function init(){
   if(profile.accent){document.documentElement.style.setProperty('--accent',profile.accent);document.documentElement.style.setProperty('--accent2',profile.accent+'CC')}
   const qt=document.getElementById('q-txt');if(qt)qt.textContent=QUOTES[quoteIdx];
   prevLvl=getLvInfo().lv;
+  checkPenalties();
+  setTimeout(applyPenaltyVisuals, 2000);
+  setInterval(applyPenaltyVisuals, 60000);
   // avatar image support
   const sbav=document.getElementById('sb-avatar');
   if(sbav){if(profile.avatarImg)sbav.innerHTML=`<img src="${profile.avatarImg}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;else sbav.textContent=profile.avatar||'🧙';}
